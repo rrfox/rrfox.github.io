@@ -1,0 +1,29 @@
+#!/usr/bin/env bash
+
+source .pootrc
+
+echo 'Welcome to Poot'
+echo 'a simple and lightweight microblogging platform'
+echo
+
+sleep 1
+
+# clear out old poot stuff
+rm -r $TEMPLOC
+mkdir -p $TEMPLOC
+
+$EDITOR $TEMPLOC'post'
+
+[[ -f $TEMPLOC'post' ]] || (echo 'canceling...' && exit 1)
+
+echo -e "\n\n"'<small>'$PDATE'</small>' >> $TEMPLOC'post'
+
+cat $TEMPLOC'post' | $MARK >> $TEMPLOC'md'
+
+sed -i '/<!-- poot -->/a \
+<\/div>' $FPOST
+sed -i '/<!-- poot -->/r '$TEMPLOC'md' $FPOST
+sed -i '/<!-- poot -->/a \
+<div class="poot-post">' $FPOST
+
+
