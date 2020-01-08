@@ -24,6 +24,6 @@ sed -i '/<!-- poot -->/a \
 <\/div>' $FPOST
 sed -i '/<!-- poot -->/r '$TEMPLOC'md' $FPOST
 sed -i '/<!-- poot -->/a \
-<div class="poot-post">' $FPOST
+<div class="poot-post" id="'$RANDOM'">' $FPOST
 
 
